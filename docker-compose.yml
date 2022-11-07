@@ -4,11 +4,14 @@ services:
     image: 'redis'
     ports:
       - '6379:6379'
+    command: >
+      --requirepass ${REDIS_PASSWORD}
   postgres:
     image: 'postgres'
     ports:
       - '5432:5432'
     environment:
+      - 'POSTGRES_USER=root'
       - 'POSTGRES_PASSWORD=${POSTGRES_PASSWORD}'
   mysql:
     image: 'mysql'
@@ -20,3 +23,12 @@ services:
     image: 'mongo'
     ports:
       - '27017:27017'
+    environment:
+    - 'MONGO_INITDB_ROOT_USERNAME=root'
+    - 'MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}'
+  mariadb:
+    image: 'mariadb'
+    ports:
+      - '3308:3306'
+    environment:
+      - 'MARIADB_ROOT_PASSWORD=${MARIADB_PASSWORD}' 
